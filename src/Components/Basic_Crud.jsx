@@ -130,13 +130,28 @@ catch(error){
   SetDetails(about)
 
  }
-  const filterData=data
+ const[search,Setsearch]=useState('')
+  const filterData=data.filter((ele)=>ele.name.toLowerCase().includes(search.toLowerCase())||
+  String(ele.id).includes(search)||
+  String(ele.phone).includes(search)
+)
+
+
+
   return (
     <div style={{padding:'50px 30px'}}>
     
       <Card shadow="sm" padding="lg" radius="md" withBorder width='auto'>
         <div style={{display:'flex',justifyContent:'space-between'}}>
           <h2>Persons Table</h2>
+          <TextInput
+          value={search}
+          style={{flexGrow:'0.7'}}
+          mt='lg'
+          placeholder='search by name or id or number  '
+          onChange={(e)=>Setsearch(e.target.value)}
+
+          />
                   <Modal opened={activeModal === 'modal1'} onClose={closeModal} title="Add New Patient">
                     <Card shadow="sm" padding="lg" radius="md" withBorder width='auto'>
                       <form onSubmit={AddPerson}>
