@@ -7,7 +7,7 @@ import { FaRegEye, FaUserEdit } from 'react-icons/fa';
 import { MdDeleteForever } from 'react-icons/md';
 
 let api= axios.create({
-  baseURL:'http://localhost:3002'
+  baseURL:'http://192.168.155.114:3006'
 })
 
 const Basic_Crud = () => {
@@ -61,7 +61,7 @@ const Basic_Crud = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   const GetAll =async ()=>{
-    let res= await api.get('/All_Persons')
+    let res= await api.get('/persons')
     console.log(res.data)
     setdata(res.data)
   }
@@ -69,7 +69,7 @@ const Basic_Crud = () => {
   const AddPerson = async (e)=>{
     e.preventDefault();
     try{
-    let Post= await api.post('/Add',
+    let Post= await api.post('/persons',
       {
         name:form.values.name,
         age:form.values.age,
@@ -152,7 +152,7 @@ catch(error){
           onChange={(e)=>Setsearch(e.target.value)}
 
           />
-                  <Modal opened={activeModal === 'modal1'} onClose={closeModal} title="Add New Patient">
+                  <Modal opened={activeModal === 'modal1'} onClose={closeModal} title="Add New Person" centered>
                     <Card shadow="sm" padding="lg" radius="md" withBorder width='auto'>
                       <form onSubmit={AddPerson}>
                         <TextInput
